@@ -1,0 +1,628 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>La Gazette</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+    body {
+      font-family: 'Merriweather', serif;
+      background-color: #f8bbd0; /* framboise clair */
+      color: #000;
+      margin: 0;
+      padding: 0;
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      min-height: 100vh;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 1rem 2rem;
+      border-bottom: 3px solid #880e4f; /* framboise foncé */
+      background: #f8bbd0; /* même framboise clair que body */
+      box-shadow: 0 4px 8px rgba(136, 14, 79, 0.15);
+      color: #880e4f; /* framboise foncé */
+    }
+
+    header h1 {
+      font-size: 4.5rem;
+      font-weight: 900;
+      margin: 0;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-style: normal;
+      user-select: none;
+    }
+
+    header .subtitle {
+      font-size: 1.5rem;
+      font-style: italic;
+      margin-top: 0.3rem;
+      font-weight: 400;
+      letter-spacing: 1px;
+      color: #880e4f;
+    }
+
+    main {
+      max-width: 900px;
+      margin: 3rem auto 4rem;
+      padding: 0 1rem;
+    }
+
+    .section {
+      background-color: #fafafa;
+      border-left: 6px solid #880e4f; /* framboise foncé */
+      box-shadow: 4px 6px 15px rgba(136, 14, 79, 0.12);
+      margin-bottom: 3.5rem;
+      padding: 2rem 2.5rem;
+      border-radius: 0;
+      color: #000;
+    }
+
+    .section h2 {
+      font-size: 2.5rem;
+      margin-top: 0;
+      margin-bottom: 1rem;
+      color: #880e4f; /* framboise foncé */
+      border-bottom: 2px solid #880e4f;
+      padding-bottom: 0.5rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      user-select: none;
+      font-weight: 900;
+      font-family: 'Merriweather', serif;
+    }
+
+    /* Météo & Fête du jour */
+    #weatherSaint .weather-info {
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      font-weight: 600;
+      color: #111;
+    }
+
+    /* Actualités */
+    #news .article {
+      margin-bottom: 2rem;
+      padding: 1rem 1.5rem;
+      background-color: #fff;
+      border: 1px solid #880e4f; /* framboise foncé */
+      border-left: 5px solid #880e4f;
+      cursor: default;
+      transition: background-color 0.3s ease;
+    }
+    /* suppression du hover color */
+    #news .article:hover {
+      background-color: #fff;
+    }
+    #news .article h3 {
+      font-size: 1.7rem;
+      margin-bottom: 0.4rem;
+      color: #880e4f; /* framboise foncé */
+      user-select: text;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.7px;
+    }
+    #news .article p {
+      font-size: 1.2rem;
+      margin: 0;
+      color: #222;
+      user-select: text;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Button Écouter */
+    button.listen-btn {
+      background-color: #880e4f; /* framboise foncé */
+      border: none;
+      color: white;
+      font-weight: 700;
+      font-size: 1.1rem;
+      padding: 0.4rem 1rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: background-color 0.25s ease;
+      user-select: none;
+      margin-left: auto;
+    }
+    button.listen-btn:hover {
+      background-color: #aa1f6b;
+    }
+
+    /* Flex header with button */
+    .section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      header h1 {
+        font-size: 3rem;
+      }
+      .section {
+        padding: 1.5rem 1.8rem;
+      }
+      main {
+        margin: 2rem auto 3rem;
+      }
+      #weatherSaint .weather-info {
+        flex-direction: column;
+        gap: 0.7rem;
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>La Gazette</h1>
+    <div class="subtitle">L'édition quotidienne pour les esprits curieux</div>
+  </header>
+
+  <main>
+    <section class="section" id="weatherSaint">
+      <div class="section-header">
+        <h2>Météo et Fête du jour</h2>
+        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+      <!-- Carte de France -->
+<!-- Ici tu peux ajouter la météo ou texte fête -->
+  <p style="margin-top: 1rem; font-size: 1.2rem; color: #444;">Aujourd'hui, la météo est ensoleillée partout en France.</p>
+  <div style="text-align: center; margin-top: 1rem;">
+    <img src="meteofrance.png" 
+         alt="Carte de France" 
+         style="max-width: 100%; height: auto; border: 2px solid #c0392b; border-radius: 8px; box-shadow: 0 0 10px rgba(192, 57, 43, 0.7);" />
+<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
+    Cette carte provient du site <strong>Météo France</strong>.
+  </p>
+  </div>
+  
+  
+
+    </section>
+
+    <section class="section" id="news">
+      <div class="section-header">
+        <h2>Actualités du jour</h2>
+        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+
+      <article class="article">
+        <h3>Réforme des retraites adoptée</h3>
+        <p>Le gouvernement a adopté une nouvelle réforme des retraites, provoquant des réactions dans tout le pays.</p>
+      </article>
+      <article class="article">
+        <h3>Nouvelle découverte médicale</h3>
+        <p>Des chercheurs français ont mis au point un vaccin prometteur contre la grippe saisonnière.</p>
+      </article>
+      <article class="article">
+        <h3>Le Tour de France débute</h3>
+        <p>Les cyclistes sont prêts pour le grand départ du Tour depuis Florence.</p>
+      </article>
+      <article class="article">
+        <h3>Le prix du pain augmente</h3>
+        <p>Les boulangeries affichent une hausse du prix de la baguette de 10 centimes.</p>
+      </article>
+      <article class="article">
+        <h3>La France qualifiée en finale</h3>
+        <p>L'équipe nationale de football se qualifie pour la finale de la Coupe d'Europe.</p>
+      </article>
+    </section>
+
+<section id="quiz-section" class="section" >
+     <div class="section-header">
+        <h2>Quizz sur l'actualité</h2>
+        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+  
+  <div id="quiz-container">
+    <!-- Questions affichées ici dynamiquement -->
+  </div>
+
+  <div id="quiz-result" style="display:none; text-align:center; margin-top:1rem; font-size:1.5rem; font-weight:bold;"></div>
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="restart-quiz" style="display:none; background:#8b2242; color:#fff; border:none; padding:0.8rem 2rem; border-radius:12px; font-size:1.1rem; cursor:pointer;">Recommencer le quiz</button>
+  </div>
+</section>
+
+<script>
+  const quizQuestions = [
+    {
+      question: "Quel pays a récemment annoncé un plan ambitieux pour réduire ses émissions de CO2 ?",
+      answers: ["France", "Brésil", "Inde"],
+      correctIndex: 0
+    },
+    {
+      question: "Quel événement sportif majeur a eu lieu cette année ?",
+      answers: ["Jeux Olympiques", "Coupe du Monde de Football", "Tour de France"],
+      correctIndex: 1
+    },
+    {
+      question: "Quel nouveau film a été un succès au box-office ce mois-ci ?",
+      answers: ["Le Voyage Imaginaire", "Le Dernier Espoir", "L'Odyssée Perdue"],
+      correctIndex: 2
+    },
+    {
+      question: "Quel avancée technologique a été annoncée récemment ?",
+      answers: ["Voiture volante", "Intelligence Artificielle avancée", "Téléportation"],
+      correctIndex: 1
+    },
+    {
+      question: "Quelle personnalité politique a fait une déclaration marquante cette semaine ?",
+      answers: ["Emmanuel Macron", "Angela Merkel", "Justin Trudeau"],
+      correctIndex: 0
+    }
+  ];
+
+  const quizContainer = document.getElementById('quiz-container');
+  const quizResult = document.getElementById('quiz-result');
+  const restartBtn = document.getElementById('restart-quiz');
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+  let buttons = [];
+
+  function showQuestion() {
+    const q = quizQuestions[currentQuestionIndex];
+    quizContainer.innerHTML = `<p style="font-size:1.3rem; margin-bottom:1rem;">${q.question}</p>`;
+    buttons = [];
+    q.answers.forEach((answer, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = answer;
+      btn.style.cssText = "display:block; width:100%; margin:0.4rem 0; padding:0.8rem; font-size:1.1rem; border-radius:8px; border:1px solid #8b2242; cursor:pointer; background:#fff; color:#8b2242; transition: background-color 0.3s, color 0.3s;";
+      btn.onclick = () => handleAnswer(i);
+      quizContainer.appendChild(btn);
+      buttons.push(btn);
+    });
+  }
+
+  function handleAnswer(selectedIndex) {
+    const q = quizQuestions[currentQuestionIndex];
+
+    // Disable buttons after answer
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selectedIndex === q.correctIndex) {
+      buttons[selectedIndex].style.backgroundColor = '#4CAF50'; // vert
+      buttons[selectedIndex].style.color = '#fff';
+      score++;
+    } else {
+      buttons[selectedIndex].style.backgroundColor = '#e74c3c'; // rouge
+      buttons[selectedIndex].style.color = '#fff';
+
+      // Highlight correct answer
+      buttons[q.correctIndex].style.backgroundColor = '#4CAF50';
+      buttons[q.correctIndex].style.color = '#fff';
+    }
+
+    // passer à la question suivante après un délai
+    setTimeout(() => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizQuestions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }, 1500);
+  }
+
+  function showResult() {
+    quizContainer.style.display = 'none';
+    quizResult.style.display = 'block';
+    quizResult.textContent = `Votre score est ${score} sur ${quizQuestions.length}`;
+    restartBtn.style.display = 'inline-block';
+  }
+
+  restartBtn.onclick = () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    quizResult.style.display = 'none';
+    restartBtn.style.display = 'none';
+    quizContainer.style.display = 'block';
+    showQuestion();
+  }
+
+  // Affiche la première question au chargement
+  showQuestion();
+
+  // Fonction écoute texte simplifiée, tu peux intégrer la tienne
+  function toggleSpeech(button, sectionId) {
+    const synth = window.speechSynthesis;
+    if (synth.speaking) {
+      synth.cancel();
+      button.textContent = 'Écouter';
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+    const text = section.innerText;
+    const voices = synth.getVoices().filter(v => v.lang.startsWith('fr') && v.name.toLowerCase().includes('thomas'));
+    let voice = voices.length ? voices[0] : synth.getVoices()[0];
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voice;
+    button.textContent = 'Arrêter';
+    synth.speak(utterance);
+
+    utterance.onend = () => {
+      button.textContent = 'Écouter';
+    };
+  }
+</script>
+
+
+<section id="avant" class="section">
+ <div class="section-header">
+  <h2>Ce jour-là dans l’Histoire</h2>
+<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+  <p>
+    Avant les événements récents, plusieurs situations ont façonné le contexte actuel. Par exemple, des tensions
+    politiques, des catastrophes naturelles ou encore des avancées économiques ont pu influencer les décisions
+    récentes prises par les gouvernements et les populations.
+  </p>
+</section>
+
+
+<!-- Section Musique du jour -->
+<section id="musique" class="section">
+ <div class="section-header">
+  <h2>Musique du jour</h2>
+<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+  <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+    Voici une musique choisie pour accompagner votre journée :
+  </p>
+
+  <div style="display: flex; align-items: center; gap: 1rem;">
+    <button id="musicToggleBtn" onclick="toggleMusic()" 
+      style="background-color: #c0392b; color: white; padding: 0.5rem 1rem; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
+      Écouter
+    </button>
+    <span style="font-style: italic;">Boulevard des Airs et LEJ - Emmène moi</span>
+  </div>
+
+  <audio id="dailyMusic" src="Boulevard des Airs Emmène moi Clip officiel ft. L.E.J.mp3"></audio>
+
+  <p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
+    🎧 Cette musique provient de la bibliothèque libre de droits de <strong>YouTube</strong> et de <a href="https://incompetech.com" target="_blank">Incompetech</a>.
+  </p>
+</section>
+
+<script>
+  const music = document.getElementById("dailyMusic");
+  const musicBtn = document.getElementById("musicToggleBtn");
+
+  function toggleMusic() {
+    if (music.paused) {
+      music.play();
+      musicBtn.textContent = "Arrêter";
+    } else {
+      music.pause();
+      music.currentTime = 0;
+      musicBtn.textContent = "Écouter";
+    }
+  }
+
+  // Stop the music if the user navigates away
+  window.addEventListener("beforeunload", () => {
+    music.pause();
+    music.currentTime = 0;
+    musicBtn.textContent = "Écouter";
+  });
+</script>
+
+
+<section id="histoire" class="section">
+ <div class="section-header">
+  <h2>Histoire du jour</h2>
+<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+<p style="font-size: 1.1rem; margin-bottom: 1rem;">
+    Voici une histoire choisie pour vous : 
+  </p>
+  <p>
+    Avant les événements récents, plusieurs situations ont façonné le contexte actuel. Par exemple, des tensions
+    politiques, des catastrophes naturelles ou encore des avancées économiques ont pu influencer les décisions
+    récentes prises par les gouvernements et les populations.
+  </p>
+</section>
+
+<section id="video" class="section">
+ <div class="section-header">
+  <h2>Vidéo du jour</h2>
+<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+<p style="font-size: 1.1rem; margin-bottom: 1rem;">
+    Voici une video choisie pour vous : 
+  </p>
+   <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
+    <iframe 
+      src="https://www.youtube.com/embed/ScMzIvxBSi4" 
+      title="Vidéo YouTube du jour"
+      frameborder="0" 
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+      allowfullscreen 
+      style="position: absolute; top:0; left:0; width:100%; height:100%;">
+    </iframe>
+  </div>
+
+  <p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
+    📹 Cette vidéo provient de la plateforme <strong>YouTube</strong>. Pour plus de contenus, visitez <a href="https://www.youtube.com" target="_blank">youtube.com</a>.
+  </p>
+</section>
+
+
+
+<!-- SECTION JEU DE MOTS -->
+<section id="jeu" class="section">
+  <div class="section-header">
+  <h2>Jeu de mots</h2>
+<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+      </div>
+
+  <p>Trouvez les mots à l'aide des indices. Chaque lettre correcte s'affichera en <span style="color:green;">vert</span>, chaque erreur en <span style="color:red;">rouge</span>.</p>
+
+  <div id="word-game" style="margin-top: 1.5rem;"></div>
+
+  <button onclick="showAnswers()" style="margin-top: 1.5rem; padding: 0.5rem 1rem; background-color: #555; color: white; border: none; border-radius: 6px; cursor: pointer;">Afficher les résultats</button>
+</section>
+
+<script>
+const words = [
+  { clue: "On le lit tous les matins", word: "journal" },
+  { clue: "Oiseau nocturne", word: "hibou" },
+  { clue: "Fruit jaune courbé", word: "banane" },
+  { clue: "Objet pour voir l'heure", word: "montre" },
+  { clue: "Saison des fleurs", word: "printemps" },
+  { clue: "Lieu d’apprentissage", word: "école" },
+  { clue: "Étoile du jour", word: "soleil" },
+  { clue: "Boisson chaude du matin", word: "café" },
+  { clue: "Véhicule sur rails", word: "train" },
+  { clue: "Habitation", word: "maison" }
+];
+
+function createGame() {
+  const gameDiv = document.getElementById("word-game");
+  gameDiv.innerHTML = "";
+
+  words.forEach((item, idx) => {
+    const wordContainer = document.createElement("div");
+    wordContainer.style.marginBottom = "1.5rem";
+
+    const label = document.createElement("label");
+    label.textContent = `${idx + 1}. ${item.clue}`;
+    label.style.display = "block";
+    label.style.marginBottom = "0.5rem";
+    label.style.fontWeight = "bold";
+
+    const inputDiv = document.createElement("div");
+    inputDiv.style.display = "flex";
+    inputDiv.style.gap = "6px";
+
+    for (let i = 0; i < item.word.length; i++) {
+      const input = document.createElement("input");
+      input.type = "text";
+      input.maxLength = "1";
+      input.dataset.index = i;
+      input.dataset.word = item.word;
+      input.classList.add("letter-input");
+
+      // Style des cases
+      input.style.width = "3rem";
+      input.style.height = "3rem";
+      input.style.textAlign = "center";
+      input.style.fontSize = "1.5rem";
+      input.style.border = "2px solid #ccc";
+      input.style.borderRadius = "6px";
+      input.style.transition = "0.2s ease";
+
+      input.addEventListener("input", function () {
+        const expectedLetter = input.dataset.word[parseInt(input.dataset.index)];
+        const userLetter = input.value.toLowerCase();
+
+        if (userLetter === expectedLetter) {
+          input.style.backgroundColor = "#c8e6c9"; // vert clair
+        } else {
+          input.style.backgroundColor = "#ffcdd2"; // rouge clair
+        }
+      });
+
+      inputDiv.appendChild(input);
+    }
+
+    wordContainer.appendChild(label);
+    wordContainer.appendChild(inputDiv);
+    gameDiv.appendChild(wordContainer);
+  });
+}
+
+function showAnswers() {
+  const inputs = document.querySelectorAll(".letter-input");
+  inputs.forEach(input => {
+    const expectedLetter = input.dataset.word[parseInt(input.dataset.index)];
+    input.value = expectedLetter;
+    input.style.backgroundColor = "#c8e6c9"; // vert clair
+  });
+}
+
+createGame();
+</script>
+
+
+  </main>
+
+  <script>
+    let synth = window.speechSynthesis;
+    let currentUtterance = null;
+
+    function toggleSpeech(button) {
+      if(synth.speaking) {
+        synth.cancel();
+        button.textContent = 'Écouter';
+        return;
+      }
+
+      let section = button.closest('section');
+      if (!section) return;
+
+      let text = '';
+
+      if(section.id === 'weatherSaint') {
+        const weatherDiv = section.querySelector('.weather-info');
+        text = 'Météo du jour : ' + weatherDiv.children[0].innerText + '. Fête du jour : ' + weatherDiv.children[1].innerText;
+      } else if (section.id === 'news') {
+        const articles = section.querySelectorAll('.article');
+        articles.forEach(article => {
+          text += article.querySelector('h3').innerText + '. ' + article.querySelector('p').innerText + '. ';
+        });
+      } else {
+        text = section.innerText;
+      }
+
+      const voices = synth.getVoices();
+      const maleFrenchVoices = voices.filter(v => v.lang.startsWith('fr') && v.name.toLowerCase().includes('thomas'));
+      const voice = maleFrenchVoices.length > 0 ? maleFrenchVoices[0] : voices.find(v => v.lang.startsWith('fr')) || null;
+
+      if (!voice) {
+        alert("Voix française masculine non disponible sur ce navigateur.");
+        return;
+      }
+
+      currentUtterance = new SpeechSynthesisUtterance(text);
+      currentUtterance.voice = voice;
+
+      currentUtterance.onend = () => {
+        button.textContent = 'Écouter';
+      };
+
+      button.textContent = 'Arrêter';
+      synth.speak(currentUtterance);
+    }
+
+    // Stop speech on clicking anywhere else or pressing ESC
+    document.addEventListener('click', (e) => {
+      if (!e.target.classList.contains('listen-btn') && synth.speaking) {
+        synth.cancel();
+        document.querySelectorAll('.listen-btn').forEach(btn => btn.textContent = 'Écouter');
+      }
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && synth.speaking) {
+        synth.cancel();
+        document.querySelectorAll('.listen-btn').forEach(btn => btn.textContent = 'Écouter');
+      }
+    });
+  </script>
+</body>
+</html>
