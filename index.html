@@ -185,6 +185,10 @@
 	  .menu-toggle {
 		display: block;
 	  }
+	   #restart {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
     }
 	
 	.header-links {
@@ -228,14 +232,79 @@
   cursor: pointer;
 }
 
+
+
+    .memory-game {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+      gap: 10px;
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 0 10px;
+    }
+
+   .card {
+  position: relative;
+  width: 100%;
+  height: 0;
+  padding-bottom: 100%; /* carré */
+  perspective: 1000px;
+  cursor: pointer;
+}
+
+    .card-inner {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+
+    .card.flip .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+      border: 2px solid #ccc;
+    }
+
+    .card-front {
+      background: #eee;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-back {
+      transform: rotateY(180deg);
+    }
+
+    .card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .matched .card-inner {
+      opacity: 0.1;
+    }
+
+
+
   </style>
 </head>
 <body>
 
   <header>
 	
-	<h1>La Gazette</h1>
-    <div class="subtitle">L'édition quotidienne pour les esprits curieux</div>
+	<h1>L'édito</h1>
+    <div class="subtitle">L'édition quotidienne pour les esprits curieux et joueurs</div>
 	
   </header>
 
@@ -423,6 +492,9 @@
 	 
  </section>
 
+
+
+
 <!-------------------------------------Section Ce jour la dans l'histoire---------------------------------------->
 
 <section id="avant" class="section">
@@ -461,9 +533,8 @@
   </div>
 
   <audio id="dailyMusic" src="Boulevard des Airs Emmène moi Clip officiel ft. L.E.J.mp3"></audio>
-
-  <p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
-    🎧 Cette musique provient de la bibliothèque libre de droits de <strong>YouTube</strong> et de <a href="https://incompetech.com" target="_blank">Incompetech</a>.
+	<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
+    🎧 Cette musique provient de la plateforme <strong>YouTube</strong>. Pour plus de contenus, visitez <a href="https://www.youtube.com" target="_blank">youtube.com</a>.
   </p>
 </section>
 <script>
@@ -514,14 +585,14 @@
 <section id="video" class="section">
  <div class="section-header">
   <h2>Vidéo du jour</h2>
-<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+
       </div>
 <p style="font-size: 1.1rem; margin-bottom: 1rem;">
     Voici une video choisie pour vous : 
   </p>
    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
     <iframe 
-      src="https://www.youtube.com/embed/ScMzIvxBSi4" 
+      src="https://www.youtube.com/watch?v=v2GYHS9NB5o" 
       title="Vidéo YouTube du jour"
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
@@ -541,8 +612,7 @@
 <section id="jeu" class="section">
   <div class="section-header">
   <h2>Jeu de mots</h2>
-<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
-      </div>
+   </div>
 
   <p>Trouvez les mots à l'aide des indices. Chaque lettre correcte s'affichera en <span style="color:green;">vert</span>, chaque erreur en <span style="color:red;">rouge</span>.</p>
 
@@ -624,6 +694,248 @@
       input.value = correctChar;
       input.style.backgroundColor = "#a5d6a7"; // vert clair
     });
+  }
+</script>
+<!--------------------------------------------------------- SECTION JEU DE MEMOIRE --------------------------------------->
+<section id="memoire" class="section">
+  <div class="section-header">
+  <h2>Jeu de mémoires</h2>
+  </div>
+  <p style="font-size: 1.1rem; margin-bottom: 1rem;">
+    Le but du jeu est de retrouver les paires, bonne chance !  
+  </p>
+  <button class="listen-btn" id="restart">🔄 Rejouer</button>
+  
+<div class="memory-game" id="game"></div>
+</section>
+<script>
+  const images = [
+    "carte1.PNG",
+    "carte2.PNG",
+    "carte3.PNG",
+    "carte4.PNG",
+    "carte5.PNG",
+    "carte6.PNG",
+    "carte7.PNG",
+    "carte8.PNG",
+    "carte9.PNG",
+    "carte10.PNG",
+  ];
+
+  const gameContainer = document.getElementById("game");
+  const restartBtn = document.getElementById("restart");
+
+  let flipped = [];
+  let lockBoard = false;
+  let deck = [];
+
+  function createCard(imageSrc) {
+    const card = document.createElement("div");
+    card.classList.add("card");
+
+    const inner = document.createElement("div");
+    inner.classList.add("card-inner");
+
+    const front = document.createElement("div");
+	front.classList.add("card-front");
+
+    const back = document.createElement("div");
+    back.classList.add("card-back");
+    back.innerHTML = `<img src="${imageSrc}" alt="Carte">`;
+
+    inner.appendChild(front);
+    inner.appendChild(back);
+    card.appendChild(inner);
+    card.dataset.image = imageSrc;
+
+    card.addEventListener("click", () => {
+      if (lockBoard || card.classList.contains("matched") || flipped.includes(card)) return;
+
+      card.classList.add("flip");
+      flipped.push(card);
+
+      if (flipped.length === 2) checkMatch();
+    });
+
+    return card;
+  }
+
+  function checkMatch() {
+    lockBoard = true;
+    const [c1, c2] = flipped;
+    const match = c1.dataset.image === c2.dataset.image;
+
+    setTimeout(() => {
+      if (match) {
+        c1.classList.add("matched");
+        c2.classList.add("matched");
+      } else {
+        c1.classList.remove("flip");
+        c2.classList.remove("flip");
+      }
+      flipped = [];
+      lockBoard = false;
+
+      if (document.querySelectorAll(".matched").length === deck.length) {
+        setTimeout(() => {
+          alert("🎉 Bravo ! Vous avez gagné !");
+        }, 300);
+      }
+    }, 800);
+  }
+
+  function initGame() {
+    gameContainer.innerHTML = "";
+    deck = [...images, ...images].sort(() => 0.5 - Math.random());
+    deck.forEach(src => {
+      const card = createCard(src);
+      gameContainer.appendChild(card);
+    });
+  }
+
+  restartBtn.addEventListener("click", initGame);
+  window.addEventListener("load", initGame);
+</script>
+
+
+<section id="quiz-section" class="section" >
+     <div class="section-header">
+        <h2>Quizz</h2>
+        
+      </div>
+  
+  <div id="quiz-container">
+    <!-- Questions affichées ici dynamiquement -->
+  </div>
+
+  <div id="quiz-result" style="display:none; text-align:center; margin-top:1rem; font-size:1.5rem; font-weight:bold;"></div>
+  <div style="text-align:center; margin-top:1rem;">
+    <button id="restart-quiz" style="display:none; background:#8b2242; color:#fff; border:none; padding:0.8rem 2rem; border-radius:12px; font-size:1.1rem; cursor:pointer;">Recommencer le quiz</button>
+  </div>
+</section>
+
+<script>
+  const quizQuestions = [
+  {
+    question: "Quelle est la capitale de la France ?",
+    answers: ["Lyon", "Paris", "Marseille"],
+    correctIndex: 1
+  },
+  {
+    question: "Quel est le plus grand océan du monde ?",
+    answers: ["Océan Atlantique", "Océan Indien", "Océan Pacifique"],
+    correctIndex: 2
+  },
+  {
+    question: "Quel est le symbole chimique de l'eau ?",
+    answers: ["H2O", "CO2", "O2"],
+    correctIndex: 0
+  },
+  {
+    question: "Quelle saison suit l'été ?",
+    answers: ["Printemps", "Automne", "Hiver"],
+    correctIndex: 1
+  },
+  {
+    question: "Quel fruit est connu pour être jaune et courbé ?",
+    answers: ["Banane", "Citron", "Ananas"],
+    correctIndex: 0
+  }
+];
+
+  const quizContainer = document.getElementById('quiz-container');
+  const quizResult = document.getElementById('quiz-result');
+  const restartBtnQuiz = document.getElementById('restart-quiz');
+
+  let currentQuestionIndex = 0;
+  let score = 0;
+  let buttons = [];
+
+  function showQuestion() {
+    const q = quizQuestions[currentQuestionIndex];
+    quizContainer.innerHTML = `<p style="font-size:1.3rem; margin-bottom:1rem;">${q.question}</p>`;
+    buttons = [];
+    q.answers.forEach((answer, i) => {
+      const btn = document.createElement('button');
+      btn.textContent = answer;
+      btn.style.cssText = "display:block; width:100%; margin:0.4rem 0; padding:0.8rem; font-size:1.1rem; border-radius:8px; border:1px solid #8b2242; cursor:pointer; background:#fff; color:#8b2242; transition: background-color 0.3s, color 0.3s;";
+      btn.onclick = () => handleAnswer(i);
+      quizContainer.appendChild(btn);
+      buttons.push(btn);
+    });
+  }
+
+  function handleAnswer(selectedIndex) {
+    const q = quizQuestions[currentQuestionIndex];
+
+    // Disable buttons after answer
+    buttons.forEach(btn => btn.disabled = true);
+
+    if (selectedIndex === q.correctIndex) {
+      buttons[selectedIndex].style.backgroundColor = '#4CAF50'; // vert
+      buttons[selectedIndex].style.color = '#fff';
+      score++;
+    } else {
+      buttons[selectedIndex].style.backgroundColor = '#e74c3c'; // rouge
+      buttons[selectedIndex].style.color = '#fff';
+
+      // Highlight correct answer
+      buttons[q.correctIndex].style.backgroundColor = '#4CAF50';
+      buttons[q.correctIndex].style.color = '#fff';
+    }
+
+    // passer à la question suivante après un délai
+    setTimeout(() => {
+      currentQuestionIndex++;
+      if (currentQuestionIndex < quizQuestions.length) {
+        showQuestion();
+      } else {
+        showResult();
+      }
+    }, 1500);
+  }
+
+  function showResult() {
+    quizContainer.style.display = 'none';
+    quizResult.style.display = 'block';
+    quizResult.textContent = `Votre score est ${score} sur ${quizQuestions.length}`;
+    restartBtnQuiz.style.display = 'inline-block';
+  }
+
+  restartBtnQuiz.onclick = () => {
+    currentQuestionIndex = 0;
+    score = 0;
+    quizResult.style.display = 'none';
+    restartBtnQuiz.style.display = 'none';
+    quizContainer.style.display = 'block';
+    showQuestion();
+  }
+
+  // Affiche la première question au chargement
+  showQuestion();
+
+  // Fonction écoute texte simplifiée, tu peux intégrer la tienne
+  function toggleSpeech(button, sectionId) {
+    const synth = window.speechSynthesis;
+    if (synth.speaking) {
+      synth.cancel();
+      button.textContent = 'Écouter';
+      return;
+    }
+
+    const section = document.getElementById(sectionId);
+    const text = section.innerText;
+    const voices = synth.getVoices().filter(v => v.lang.startsWith('fr') && v.name.toLowerCase().includes('thomas'));
+    let voice = voices.length ? voices[0] : synth.getVoices()[0];
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    utterance.voice = voice;
+    button.textContent = 'Arrêter';
+    synth.speak(utterance);
+
+    utterance.onend = () => {
+      button.textContent = 'Écouter';
+    };
   }
 </script>
 
