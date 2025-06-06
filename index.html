@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <title>La Gazette</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
@@ -21,7 +22,7 @@
 
     header {
       text-align: center;
-      padding: 3rem 1rem 2rem;
+      padding: 1rem 0rem 0rem; 
       border-bottom: 3px solid #880e4f; /* framboise foncé */
       background: #f8bbd0; /* même framboise clair que body */
       box-shadow: 0 4px 8px rgba(136, 14, 79, 0.15);
@@ -32,6 +33,7 @@
       font-size: 4.5rem;
       font-weight: 900;
       margin: 0;
+      margin-top: 1rem;
       letter-spacing: 3px;
       text-transform: uppercase;
       font-style: normal;
@@ -41,7 +43,7 @@
     header .subtitle {
       font-size: 1.5rem;
       font-style: italic;
-      margin-top: 0.3rem;
+      margin-top: 0.1rem;
       font-weight: 400;
       letter-spacing: 1px;
       color: #880e4f;
@@ -53,6 +55,7 @@
       padding: 0 1rem;
     }
 
+
     .section {
       background-color: #fafafa;
       border-left: 6px solid #880e4f; /* framboise foncé */
@@ -61,6 +64,9 @@
       padding: 2rem 2.5rem;
       border-radius: 0;
       color: #000;
+	  
+	  padding-top: 50px;
+		
     }
 
     .section h2 {
@@ -87,36 +93,49 @@
     }
 
     /* Actualités */
-    #news .article {
-      margin-bottom: 2rem;
-      padding: 1rem 1.5rem;
-      background-color: #fff;
-      border: 1px solid #880e4f; /* framboise foncé */
-      border-left: 5px solid #880e4f;
-      cursor: default;
-      transition: background-color 0.3s ease;
-    }
-    /* suppression du hover color */
-    #news .article:hover {
-      background-color: #fff;
-    }
-    #news .article h3 {
-      font-size: 1.7rem;
-      margin-bottom: 0.4rem;
-      color: #880e4f; /* framboise foncé */
-      user-select: text;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.7px;
-    }
-    #news .article p {
-      font-size: 1.2rem;
-      margin: 0;
-      color: #222;
-      user-select: text;
-      font-weight: 400;
-      line-height: 1.5;
-    }
+    
+
+.article {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.2rem;
+  background-color: #fff0f5;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(255, 105, 135, 0.2);
+  margin-bottom: 1.5rem;
+}
+
+.article-image {
+  width: 120px;
+  height: 120px;
+  object-fit: cover;
+  border-radius: 8px;
+  flex-shrink: 0;
+}
+
+.article-content {
+  flex: 1;
+}
+
+.article-content h3 {
+  margin-top: 0;
+  color: #880e4f;
+  font-size: 1.5rem;
+}
+
+@media (max-width: 600px) {
+  .article {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .article-image {
+    width: 100%;
+    height: auto;
+  }
+}
+
 
     /* Button Écouter */
     button.listen-btn {
@@ -160,235 +179,297 @@
         gap: 0.7rem;
         font-size: 1.2rem;
       }
+	  nav.header-links {
+        flex-wrap: wrap;
+      }
+	  .menu-toggle {
+		display: block;
+	  }
     }
+	
+	.header-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.header-links a {
+  text-decoration: none;
+  color: #880e4f;
+  font-weight: 500;
+  padding: 0;
+  background-color: transparent;
+  transition: color 0.3s ease;
+}
+
+.header-links a:hover {
+  color: #880e4f;
+  text-decoration: underline;
+}
+	
+	.fixed-nav {
+	  position: fixed;
+	  top: 0;
+	  width: 100%;
+	  height: 10px;
+	  background-color: #f8bbd0;
+	  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+	  border-bottom: 3px solid #880e4f; /* framboise foncé */
+	  z-index: 1000;
+	  padding: 1rem;
+	}
+	
+	/* Bouton menu hamburger */
+.menu-toggle {
+  display: none;
+  font-size: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
   </style>
 </head>
 <body>
+
   <header>
-    <h1>La Gazette</h1>
+	<div class="fixed-nav">
+	<div class="nav-container">
+	<button class="menu-toggle" aria-label="Menu">&#9776;</button>
+    <nav class="header-links">
+      <a href="#meteo">Météo</a>
+      <a href="#news">Actualités</a>
+      <a href="#avant">Ce jours-là, dans l'histoire</a>
+      <a href="#musique">Musique du jour</a>
+	  <a href="#histoire">Histoire du jour</a>
+	  <a href="#video">Vidéo du jour</a>
+	  <a href="#jeu">Jeu de mots</a>
+    </nav>
+	</div>
+	</div>
+	<h1>La Gazette</h1>
     <div class="subtitle">L'édition quotidienne pour les esprits curieux</div>
+	
   </header>
 
   <main>
-    <section class="section" id="weatherSaint">
-      <div class="section-header">
-        <h2>Météo et Fête du jour</h2>
-        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
-      </div>
-      <!-- Carte de France -->
-<!-- Ici tu peux ajouter la météo ou texte fête -->
-  <p style="margin-top: 1rem; font-size: 1.2rem; color: #444;">Aujourd'hui, la météo est ensoleillée partout en France.</p>
-  <div style="text-align: center; margin-top: 1rem;">
-    <img src="meteofrance.png" 
-         alt="Carte de France" 
-         style="max-width: 100%; height: auto; border: 2px solid #c0392b; border-radius: 8px; box-shadow: 0 0 10px rgba(192, 57, 43, 0.7);" />
-<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
-    Cette carte provient du site <strong>Météo France</strong>.
-  </p>
-  </div>
   
+  <!-------------------------------------Section meteo et fete du jour---------------------------------------->
   
+    <section class="section" id="meteo">
+		<div class="section-header">
+			<h2>Météo et Fête du jour</h2>
+			<button class="listen-btn" onclick="lireMeteo(this)">Écouter</button>
+		</div>
+      
+		<div id="weather-info">
+		<!-- texte à mettre à jour chaque jour pour la météo et la fete du jour--> 
+			<p style="margin-top: 1rem; font-size: 1.2rem; color: #444;">Le 5 juin, c'est la fête des Igor !</p>
+			<p style="margin-top: 1rem; font-size: 1.2rem; color: #444;">La météo du jour est pluvieuse dans le nord et ensoleillé dans le sud</p>
+		</div>
+		
+		<div style="text-align: center; margin-top: 1rem;">
+			<h3> Météo matin : <h3>
+			<img src="meteofrancematin.png" 
+					alt="Carte de France" 
+					style="max-width: 100%; height: auto; border: 2px solid #f8bbd0; border-radius: 8px; box-shadow: 0 0 10px rgba(192, 57, 43, 0.7);" />
+		</div>	
+		<div style="text-align: center; margin-top: 1rem;">
+			<h3> Météo après-midi : <h3>
+			<img src="meteofranceaprem.png" 
+					alt="Carte de France" 
+					style="max-width: 100%; height: auto; border: 2px solid #f8bbd0; border-radius: 8px; box-shadow: 0 0 10px rgba(192, 57, 43, 0.7);" />
+			<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">Ces cartes proviennent du site <strong>Météo France</strong>.
+			</p>
+		</div>
+  
+	<script>
+	let synth = window.speechSynthesis;
+	let utterance = null;
 
-    </section>
+	function lireMeteo(button) {
+	  const weatherDiv = document.getElementById("weather-info");
+	  const voixFrancaises = synth.getVoices().filter(v => v.lang.includes('fr') && v.name.toLowerCase().includes('thomas') || v.name.toLowerCase().includes('male'));
+
+	  if (!weatherDiv) return;
+
+	  // Si en train de parler, annule
+	  if (synth.speaking) {
+		synth.cancel();
+		button.textContent = "Écouter";
+		return;
+	  }
+
+	  utterance = new SpeechSynthesisUtterance(weatherDiv.innerText.trim());
+	  if (voixFrancaises.length > 0) {
+		utterance.voice = voixFrancaises[0];
+	  }
+
+	  // Quand la lecture commence, on change le texte du bouton
+	  utterance.onstart = () => {
+		button.textContent = "Arrêter";
+	  };
+
+	  // Quand la lecture se termine ou est annulée, remettre "Écouter"
+	  utterance.onend = () => {
+		button.textContent = "Écouter";
+	  };
+	  utterance.onerror = () => {
+		button.textContent = "Écouter";
+	  };
+
+	  synth.speak(utterance);
+	}
+	</script>
+	</section>
+
+  <!-------------------------------------Section actualités du jour---------------------------------------->
 
     <section class="section" id="news">
+
       <div class="section-header">
         <h2>Actualités du jour</h2>
-        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+        
       </div>
+			<!-- mise à jour des titres et le contenu des articles chaque jour -->
+   
+		<article class="article">
+			<img src="article1.png" alt="Réforme des retraites" class="article-image">
+			<div class="article-content">
+				<h3>Réforme des retraites : l’Assemblée nationale se prononce pour l’abrogation, dans un vote sans effet concret</h3>
+				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
+				<p>Le texte, déposé par les communistes et ultra-marins et qui n’a pas valeur de loi, a été largement adopté, jeudi, avec le soutien de l’ensemble de la gauche et du Rassemblement national.</p>
+				<p>Plus de deux ans après la promulgation de la réforme des retraites, et à quelques jours de la fin du « conclave » de partenaires sociaux censés y réfléchir à nouveau, les députés ont adopté, jeudi 5 juin, une résolution demandant l’abrogation du passage de l’âge de la retraite à 64 ans, sur un texte qui n’a pas valeur de loi. La résolution, déposée par le groupe GDR (communistes et ultra-marins), a été votée par 198 voix pour et 35 contre, avec le soutien de l’ensemble de la gauche et du Rassemblement national.</p>	
+				<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">Sources : <strong>Le Monde</strong>
+			</div>
+			
+		</article>
+		
+		<article class="article">
+			<img src="article2.png" alt="Réforme des retraites" class="article-image">
+			<div class="article-content">
+				<h3>Météo : écoles, supermarché et foudre, les interventions des pompiers dans la Loire et la Haute-Loire</h3>
+				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
+				<p>Après les inondations du 17 octobre, les alertes oranges aux orages, pluies et inondations ont fait redouter de nouveaux dégâts météorologiques ce mercredi 4 juin. Finalement, les pompiers ont eu à intervenir quatre fois dans la Loire et la Haute-Loire.</p>
+				<p>Les pompiers ont réalisé trois interventions dû aux conditions météorologiques ce mercredi 4 juin. La Loire et la Haute-Loire, en vigilance orange aux orages, pluie et inondations, sont passés à côté du pire. Les villes particulièrement touchées par les inondations du 17 octobre ne doivent, cette fois, pas éponger les dégâts.</p>	
+				<p>Une classe a été inondée dans le quartier Villebœuf à Saint-Etienne. Personne n'a eu besoin d'être évacué puisque les enfants n'ont pas cours le mercredi. À Précieux et de L’Hôpital-le-Grand, des écoles ont été touchées par des infiltrations d’eau et des chutes de plaques de plafond. L'école devrait tout de même être assurée ce jeudi. Du côté de Veauche, le Carrefour Market a été évacué à cause de l'eau. La direction a fermé le magasin pour la journée. Les pompiers ligériens ont réalisé une troisième et dernière intervention, en bâchant le toit d'une maison. Au total, 350 soldats du feu ont été mobilisés dans la Loire.</p>
+				<p>Côté Haute-Loire, la foudre a provoqué un feu de chaudière. L'habitation s'est enflammée un peu avant 11h sur Riotord, route du Velay. Seize pompiers sont intervenus pour éteindre le feu.</p>
+				<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">Sources : <strong>France Bleu</strong>
+			</div>
+		</article>
+		
+		<article class="article">
+			<img src="article3.png" alt="Réforme des retraites" class="article-image">
+			<div class="article-content">
+				<h3>"Il y a une petite guéguerre entre l'Ardèche et la Haute-Loire pour savoir à qui appartient le sommet", le Mont-Mézenc est un cas d'école</h3>
+				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
+				<p>Ils sont partis à l'assaut du Mont Mézenc, entre Haute-Loire et Ardèche, pour le mesurer. Ces géomètres-experts se sont attaqués ce mardi 3 juin à ce sujet sensible. La profession, souvent méconnue, entendait surtout faire connaître son importance à travers ce cas d'école.</p>
+				<p>Le mont Mézenc avec ses deux sommets reliés par une crête, dont le plus haut culmine à 1753 mètres, est à cheval sur deux départements : la Haute-Loire et l’Ardèche. Et ce massif n'en finit de faire parler de lui. Le mont Mézenc est-il en Ardèche ou Haute-Loire ? Cette frontière naturelle entre Velay et Vivarais ferait l'objet d'une profonde discorde entre les habitants des deux départements. Des géomètres experts vont-ils enfin parvenir à trancher cette question ?</p>	
+				<p>"On va mesurer le mont Mézenc et voir où passe la limite entre l'Ardèche et la Haute-Loire", indique Guillaume Valentin. Ce géomètre-expert à Nyons fait partie de la vingtaine de professionnels qui se sont rendus sur site ce mardi 3 juin. La hauteur du sommet peut osciller en raison d'un phénomène d'érosion naturelle. Ils vont s'en assurer sur le terrain. Le temps d'une journée, ces experts se sont transformés en randonneurs et ont hissé tout leur matériel face au point culminant pour effectuer des mesures techniques. </p>
+				<p>Grâce à l'utilisation de drones, des milliers de photos aériennes ont été prises. Elles permettent d'établir une cartographie très précise. Le Mont Mézenc est ainsi scruté, mesuré et modélisé. Les géomètres font de plus en plus appel aux nouvelles technologies pour récolter un maximum de données satellite GPS et obtenir ainsi des relevés très précis. Des techniques modernes bien éloignées de celles des arpenteurs d'antan.</p>
+				<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">Sources : <strong>France 3 régions</strong>
+			</div>
+		</article>
 
-      <article class="article">
-        <h3>Réforme des retraites adoptée</h3>
-        <p>Le gouvernement a adopté une nouvelle réforme des retraites, provoquant des réactions dans tout le pays.</p>
-      </article>
-      <article class="article">
-        <h3>Nouvelle découverte médicale</h3>
-        <p>Des chercheurs français ont mis au point un vaccin prometteur contre la grippe saisonnière.</p>
-      </article>
-      <article class="article">
-        <h3>Le Tour de France débute</h3>
-        <p>Les cyclistes sont prêts pour le grand départ du Tour depuis Florence.</p>
-      </article>
-      <article class="article">
-        <h3>Le prix du pain augmente</h3>
-        <p>Les boulangeries affichent une hausse du prix de la baguette de 10 centimes.</p>
-      </article>
-      <article class="article">
-        <h3>La France qualifiée en finale</h3>
-        <p>L'équipe nationale de football se qualifie pour la finale de la Coupe d'Europe.</p>
-      </article>
-    </section>
+	  
+	<script>
+		function lireArticle(button) {
+			const article = button.closest(".article");
+			const textContent = article.querySelector(".article-content").innerText;
 
-<section id="quiz-section" class="section" >
-     <div class="section-header">
-        <h2>Quizz sur l'actualité</h2>
-        <button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
-      </div>
+		  const synth = window.speechSynthesis;
+		  
+		  if (synth.speaking) {
+			synth.cancel();
+			button.textContent = "Écouter";
+			return;
+		  }
+
+		  const utterance = new SpeechSynthesisUtterance(textContent);
+		  utterance.lang = "fr-FR";
+
+		  synth.speak(utterance);
+		  button.textContent = "Arrêter";
+
+		  utterance.onend = () => {
+			button.textContent = "Écouter";
+		  };
+		}
+
+	
+	
+		let synthActu = window.speechSynthesis;
+		let utteranceActu;
+		let isReadingActu = false;
+
+		function lireActu(button) {
+		  const articles = document.querySelectorAll('.article .article-content');
+		  let texte = "";
+
+		  articles.forEach(article => {
+			const titre = article.querySelector('h3')?.innerText || "";
+			const paragraphs = Array.from(article.querySelectorAll('p')).map(p => p.innerText).join(" ");
+			texte += `${titre}. ${paragraphs} `;
+		  });
+
+		  if (!isReadingActu) {
+			utteranceActu = new SpeechSynthesisUtterance(texte);
+			utteranceActu.lang = 'fr-FR';
+			utteranceActu.voice = speechSynthesis.getVoices().find(voice => voice.lang === 'fr-FR' && voice.name.toLowerCase().includes('homme')) || speechSynthesis.getVoices().find(v => v.lang === 'fr-FR');
+
+			synthActu.speak(utteranceActu);
+			button.textContent = "Arrêter";
+			isReadingActu = true;
+
+			utteranceActu.onend = () => {
+			  button.textContent = "Écouter";
+			  isReadingActu = false;
+			};
+		  } else {
+			synthActu.cancel();
+			button.textContent = "Écouter";
+			isReadingActu = false;
+		  }
+		}
+	</script>
   
-  <div id="quiz-container">
-    <!-- Questions affichées ici dynamiquement -->
-  </div>
+	 
+ </section>
 
-  <div id="quiz-result" style="display:none; text-align:center; margin-top:1rem; font-size:1.5rem; font-weight:bold;"></div>
-  <div style="text-align:center; margin-top:1rem;">
-    <button id="restart-quiz" style="display:none; background:#8b2242; color:#fff; border:none; padding:0.8rem 2rem; border-radius:12px; font-size:1.1rem; cursor:pointer;">Recommencer le quiz</button>
-  </div>
-</section>
-
-<script>
-  const quizQuestions = [
-    {
-      question: "Quel pays a récemment annoncé un plan ambitieux pour réduire ses émissions de CO2 ?",
-      answers: ["France", "Brésil", "Inde"],
-      correctIndex: 0
-    },
-    {
-      question: "Quel événement sportif majeur a eu lieu cette année ?",
-      answers: ["Jeux Olympiques", "Coupe du Monde de Football", "Tour de France"],
-      correctIndex: 1
-    },
-    {
-      question: "Quel nouveau film a été un succès au box-office ce mois-ci ?",
-      answers: ["Le Voyage Imaginaire", "Le Dernier Espoir", "L'Odyssée Perdue"],
-      correctIndex: 2
-    },
-    {
-      question: "Quel avancée technologique a été annoncée récemment ?",
-      answers: ["Voiture volante", "Intelligence Artificielle avancée", "Téléportation"],
-      correctIndex: 1
-    },
-    {
-      question: "Quelle personnalité politique a fait une déclaration marquante cette semaine ?",
-      answers: ["Emmanuel Macron", "Angela Merkel", "Justin Trudeau"],
-      correctIndex: 0
-    }
-  ];
-
-  const quizContainer = document.getElementById('quiz-container');
-  const quizResult = document.getElementById('quiz-result');
-  const restartBtn = document.getElementById('restart-quiz');
-
-  let currentQuestionIndex = 0;
-  let score = 0;
-  let buttons = [];
-
-  function showQuestion() {
-    const q = quizQuestions[currentQuestionIndex];
-    quizContainer.innerHTML = `<p style="font-size:1.3rem; margin-bottom:1rem;">${q.question}</p>`;
-    buttons = [];
-    q.answers.forEach((answer, i) => {
-      const btn = document.createElement('button');
-      btn.textContent = answer;
-      btn.style.cssText = "display:block; width:100%; margin:0.4rem 0; padding:0.8rem; font-size:1.1rem; border-radius:8px; border:1px solid #8b2242; cursor:pointer; background:#fff; color:#8b2242; transition: background-color 0.3s, color 0.3s;";
-      btn.onclick = () => handleAnswer(i);
-      quizContainer.appendChild(btn);
-      buttons.push(btn);
-    });
-  }
-
-  function handleAnswer(selectedIndex) {
-    const q = quizQuestions[currentQuestionIndex];
-
-    // Disable buttons after answer
-    buttons.forEach(btn => btn.disabled = true);
-
-    if (selectedIndex === q.correctIndex) {
-      buttons[selectedIndex].style.backgroundColor = '#4CAF50'; // vert
-      buttons[selectedIndex].style.color = '#fff';
-      score++;
-    } else {
-      buttons[selectedIndex].style.backgroundColor = '#e74c3c'; // rouge
-      buttons[selectedIndex].style.color = '#fff';
-
-      // Highlight correct answer
-      buttons[q.correctIndex].style.backgroundColor = '#4CAF50';
-      buttons[q.correctIndex].style.color = '#fff';
-    }
-
-    // passer à la question suivante après un délai
-    setTimeout(() => {
-      currentQuestionIndex++;
-      if (currentQuestionIndex < quizQuestions.length) {
-        showQuestion();
-      } else {
-        showResult();
-      }
-    }, 1500);
-  }
-
-  function showResult() {
-    quizContainer.style.display = 'none';
-    quizResult.style.display = 'block';
-    quizResult.textContent = `Votre score est ${score} sur ${quizQuestions.length}`;
-    restartBtn.style.display = 'inline-block';
-  }
-
-  restartBtn.onclick = () => {
-    currentQuestionIndex = 0;
-    score = 0;
-    quizResult.style.display = 'none';
-    restartBtn.style.display = 'none';
-    quizContainer.style.display = 'block';
-    showQuestion();
-  }
-
-  // Affiche la première question au chargement
-  showQuestion();
-
-  // Fonction écoute texte simplifiée, tu peux intégrer la tienne
-  function toggleSpeech(button, sectionId) {
-    const synth = window.speechSynthesis;
-    if (synth.speaking) {
-      synth.cancel();
-      button.textContent = 'Écouter';
-      return;
-    }
-
-    const section = document.getElementById(sectionId);
-    const text = section.innerText;
-    const voices = synth.getVoices().filter(v => v.lang.startsWith('fr') && v.name.toLowerCase().includes('thomas'));
-    let voice = voices.length ? voices[0] : synth.getVoices()[0];
-
-    const utterance = new SpeechSynthesisUtterance(text);
-    utterance.voice = voice;
-    button.textContent = 'Arrêter';
-    synth.speak(utterance);
-
-    utterance.onend = () => {
-      button.textContent = 'Écouter';
-    };
-  }
-</script>
-
+<!-------------------------------------Section Ce jour la dans l'histoire---------------------------------------->
 
 <section id="avant" class="section">
  <div class="section-header">
   <h2>Ce jour-là dans l’Histoire</h2>
-<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
       </div>
-  <p>
-    Avant les événements récents, plusieurs situations ont façonné le contexte actuel. Par exemple, des tensions
-    politiques, des catastrophes naturelles ou encore des avancées économiques ont pu influencer les décisions
-    récentes prises par les gouvernements et les populations.
-  </p>
+	  <article class="article">
+			<div class="article-content">
+				<h3>5 juin 1968 : Attentat mortel contre Robert Kennedy</h3>
+				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
+				<p>Le sénateur américain Robert Kennedy (43 ans) est touché de deux balles tirées à bout portant par un jeune Palestinien, Sirhan Sirhan, alors qu'il sortait d'un hôtel de Los Angeles où il venait de remporter les primaires démocrates de Californie pour les prochaines élections présidentielles.</p>
+				<p>Bob Kennedy s'était fait connaître comme general attorney (ministre de la Justice) sous la présidence de son frère John Kennedy. Il était donné favori pour les élections présidentielles de la fin de l'année.</p>	
+			</div>
+		</article>
 </section>
 
 
-<!-- Section Musique du jour -->
+<!-------------------------------------Section Musique---------------------------------------->
 <section id="musique" class="section">
  <div class="section-header">
   <h2>Musique du jour</h2>
-<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
       </div>
   <p style="font-size: 1.1rem; margin-bottom: 1rem;">
     Voici une musique choisie pour accompagner votre journée :
   </p>
 
   <div style="display: flex; align-items: center; gap: 1rem;">
-    <button id="musicToggleBtn" onclick="toggleMusic()" 
-      style="background-color: #c0392b; color: white; padding: 0.5rem 1rem; font-size: 1rem; border: none; border-radius: 8px; cursor: pointer;">
-      Écouter
-    </button>
+    
+	<button id="musicToggleBtn" onclick="toggleMusic()" 
+  style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;">
+  <i id="musicIcon" class="fas fa-play" style="margin-right: 0.5rem;"></i> Écouter
+</button>
+
+	
     <span style="font-style: italic;">Boulevard des Airs et LEJ - Emmène moi</span>
   </div>
 
@@ -398,44 +479,49 @@
     🎧 Cette musique provient de la bibliothèque libre de droits de <strong>YouTube</strong> et de <a href="https://incompetech.com" target="_blank">Incompetech</a>.
   </p>
 </section>
-
 <script>
-  const music = document.getElementById("dailyMusic");
-  const musicBtn = document.getElementById("musicToggleBtn");
+  let isPlaying = false;
+  let music = new Audio('chemin/vers/ta-musique.mp3'); // Remplace par le bon chemin
 
   function toggleMusic() {
-    if (music.paused) {
-      music.play();
-      musicBtn.textContent = "Arrêter";
-    } else {
+    const icon = document.getElementById('musicIcon');
+
+    if (isPlaying) {
       music.pause();
-      music.currentTime = 0;
-      musicBtn.textContent = "Écouter";
+      icon.classList.remove('fa-pause');
+      icon.classList.add('fa-play');
+    } else {
+      music.play();
+      icon.classList.remove('fa-play');
+      icon.classList.add('fa-pause');
     }
+
+    isPlaying = !isPlaying;
   }
 
-  // Stop the music if the user navigates away
-  window.addEventListener("beforeunload", () => {
-    music.pause();
-    music.currentTime = 0;
-    musicBtn.textContent = "Écouter";
+  // Facultatif : remettre l'icône "play" si la musique s'arrête d'elle-même
+  music.addEventListener('ended', () => {
+    document.getElementById('musicIcon').classList.remove('fa-pause');
+    document.getElementById('musicIcon').classList.add('fa-play');
+    isPlaying = false;
   });
 </script>
 
 
+
+
+
 <section id="histoire" class="section">
  <div class="section-header">
-  <h2>Histoire du jour</h2>
-<button class="listen-btn" onclick="toggleSpeech(this)">Écouter</button>
+ <h2>Histoire du jour</h2>
       </div>
-<p style="font-size: 1.1rem; margin-bottom: 1rem;">
-    Voici une histoire choisie pour vous : 
-  </p>
-  <p>
-    Avant les événements récents, plusieurs situations ont façonné le contexte actuel. Par exemple, des tensions
-    politiques, des catastrophes naturelles ou encore des avancées économiques ont pu influencer les décisions
-    récentes prises par les gouvernements et les populations.
-  </p>
+	  <article class="article">
+			<div class="article-content">
+				<h3>Le jour où Bernard a tenté de réparer la chasse d’eau</h3>
+				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
+				<p>Un lundi matin comme les autres, Bernard, 54 ans, moustachu de naissance et bricoleur du dimanche (uniquement les dimanches en années bissextiles), décida de réparer la chasse d’eau de ses toilettes. Non pas qu’elle fuyait, mais elle faisait un "glouglou" qui, selon lui, « menaçait la stabilité du voisinage ». Armé de son tournevis, d’un tuto YouTube intitulé "Plomberie pour les nuls mais confiants", et d’un café noir (qu’il renversa immédiatement sur le plan de travail), Bernard s’attaqua au réservoir. — “On va montrer à ce flotteur qui commande ici.” lança-t-il avec bravoure, avant de dévisser une pièce qui, apparemment, tenait tout l’écosystème en équilibre. Résultat : un jet d’eau surgit avec la grâce d’un geyser islandais. Bernard, trempé, hurla quelque chose entre “mon slip !” et “ferme la vanne, Simone !”, mais Simone était partie chez Lidl acheter des brochettes de tofu. Pris de panique, il tenta de boucher le jet avec une éponge, puis avec un chausson, et enfin avec son chat, Gérard, qui ne lui adressa plus jamais la parole. L’eau inonda la salle de bain, puis le couloir, atteignant fièrement le tapis persan que sa belle-mère lui avait offert, un tapis qu’il avait toujours rêvé de perdre dans un accident mystérieux. Au bout de vingt minutes, il réussit enfin à couper l’eau (en arrachant une poignée au hasard), mais le mal était fait. L’appartement ressemblait à une piscine municipale, sans le maître-nageur, mais avec une odeur suspecte de déboucheur. Simone revint, ouvrit la porte, vit l’état du sol et lâcha simplement : — “Tu t’es encore battu avec une chasse d’eau ou c’est une nouvelle forme de yoga aquatique ?” Bernard, assis sur une serviette trempée, répondit stoïquement : — “J’ai voulu dompter l’eau. Elle a gagné.” Depuis ce jour, Bernard ne touche plus aux installations sanitaires. Il envoie des mails passifs-agressifs au syndic à la moindre fuite. Et Gérard, le chat, dort désormais sur le clavier du PC. Le tuto est resté ouvert à la page “Étape 1 : fermez l’arrivée d’eau”.</p>
+			</div>
+		</article>
 </section>
 
 <section id="video" class="section">
@@ -473,90 +559,85 @@
 
   <p>Trouvez les mots à l'aide des indices. Chaque lettre correcte s'affichera en <span style="color:green;">vert</span>, chaque erreur en <span style="color:red;">rouge</span>.</p>
 
-  <div id="word-game" style="margin-top: 1.5rem;"></div>
-
-  <button onclick="showAnswers()" style="margin-top: 1.5rem; padding: 0.5rem 1rem; background-color: #555; color: white; border: none; border-radius: 6px; cursor: pointer;">Afficher les résultats</button>
+<div id="grille-mots"></div>
+  <button onclick="afficherResultats()" style="margin-top: 1rem; padding: 0.5rem 1rem; font-size: 1.2rem; background-color: #880e4f; color: white; border: none; border-radius: 8px; cursor: pointer;">Afficher les résultats</button>
 </section>
 
 <script>
-const words = [
-  { clue: "On le lit tous les matins", word: "journal" },
-  { clue: "Oiseau nocturne", word: "hibou" },
-  { clue: "Fruit jaune courbé", word: "banane" },
-  { clue: "Objet pour voir l'heure", word: "montre" },
-  { clue: "Saison des fleurs", word: "printemps" },
-  { clue: "Lieu d’apprentissage", word: "école" },
-  { clue: "Étoile du jour", word: "soleil" },
-  { clue: "Boisson chaude du matin", word: "café" },
-  { clue: "Véhicule sur rails", word: "train" },
-  { clue: "Habitation", word: "maison" }
-];
+  const mots = [
+    { indice: "Animal domestique qui miaule", mot: "CHAT" },
+    { indice: "Boisson chaude du matin", mot: "CAFE" },
+    { indice: "Période de repos annuel", mot: "ETE" },
+    { indice: "Outil pour écrire", mot: "STYLO" },
+    { indice: "Fruit jaune", mot: "CITRON" },
+    { indice: "Objet pour voir l'heure", mot: "MONTRE" },
+    { indice: "Lieu pour dormir", mot: "LIT" },
+    { indice: "Plante verte d'intérieur", mot: "FICUS" },
+    { indice: "Transport à deux roues", mot: "VELO" },
+    { indice: "Lieu où l'on apprend", mot: "ECOLE" }
+  ];
 
-function createGame() {
-  const gameDiv = document.getElementById("word-game");
-  gameDiv.innerHTML = "";
+  const container = document.getElementById("grille-mots");
 
-  words.forEach((item, idx) => {
-    const wordContainer = document.createElement("div");
-    wordContainer.style.marginBottom = "1.5rem";
+  mots.forEach(({ indice, mot }, index) => {
+    const div = document.createElement("div");
+    div.style.marginBottom = "1.5rem";
 
-    const label = document.createElement("label");
-    label.textContent = `${idx + 1}. ${item.clue}`;
-    label.style.display = "block";
-    label.style.marginBottom = "0.5rem";
+    const label = document.createElement("div");
+    label.innerText = `${index + 1}. ${indice}`;
     label.style.fontWeight = "bold";
+    label.style.marginBottom = "0.5rem";
+    div.appendChild(label);
 
-    const inputDiv = document.createElement("div");
-    inputDiv.style.display = "flex";
-    inputDiv.style.gap = "6px";
+    const line = document.createElement("div");
+    line.style.display = "flex";
+    line.style.gap = "6px";
 
-    for (let i = 0; i < item.word.length; i++) {
+    for (let i = 0; i < mot.length; i++) {
       const input = document.createElement("input");
       input.type = "text";
-      input.maxLength = "1";
-      input.dataset.index = i;
-      input.dataset.word = item.word;
-      input.classList.add("letter-input");
-
-      // Style des cases
-      input.style.width = "3rem";
-      input.style.height = "3rem";
+      input.maxLength = 1;
+      input.style.width = "50px";
+      input.style.height = "50px";
       input.style.textAlign = "center";
-      input.style.fontSize = "1.5rem";
-      input.style.border = "2px solid #ccc";
-      input.style.borderRadius = "6px";
-      input.style.transition = "0.2s ease";
+      input.style.fontSize = "2rem";
+      input.style.textTransform = "uppercase";
+      input.dataset.index = i;
+      input.dataset.word = index;
 
-      input.addEventListener("input", function () {
-        const expectedLetter = input.dataset.word[parseInt(input.dataset.index)];
-        const userLetter = input.value.toLowerCase();
+      input.addEventListener("input", (e) => {
+        const value = e.target.value.toUpperCase();
+        e.target.value = value;
 
-        if (userLetter === expectedLetter) {
-          input.style.backgroundColor = "#c8e6c9"; // vert clair
+        const correct = mots[index].mot[i].toUpperCase();
+        if (value === correct) {
+          e.target.style.backgroundColor = "#a5d6a7"; // vert clair
         } else {
-          input.style.backgroundColor = "#ffcdd2"; // rouge clair
+          e.target.style.backgroundColor = "#ef9a9a"; // rouge clair
         }
+
+        // focus sur la case suivante
+        const next = e.target.nextElementSibling;
+        if (value && next) next.focus();
       });
 
-      inputDiv.appendChild(input);
+      line.appendChild(input);
     }
 
-    wordContainer.appendChild(label);
-    wordContainer.appendChild(inputDiv);
-    gameDiv.appendChild(wordContainer);
+    div.appendChild(line);
+    container.appendChild(div);
   });
-}
 
-function showAnswers() {
-  const inputs = document.querySelectorAll(".letter-input");
-  inputs.forEach(input => {
-    const expectedLetter = input.dataset.word[parseInt(input.dataset.index)];
-    input.value = expectedLetter;
-    input.style.backgroundColor = "#c8e6c9"; // vert clair
-  });
-}
-
-createGame();
+  function afficherResultats() {
+    const inputs = container.querySelectorAll("input");
+    inputs.forEach(input => {
+      const wordIndex = input.dataset.word;
+      const charIndex = input.dataset.index;
+      const correctChar = mots[wordIndex].mot[charIndex].toUpperCase();
+      input.value = correctChar;
+      input.style.backgroundColor = "#a5d6a7"; // vert clair
+    });
+  }
 </script>
 
 
@@ -567,6 +648,7 @@ createGame();
     let currentUtterance = null;
 
     function toggleSpeech(button) {
+	
       if(synth.speaking) {
         synth.cancel();
         button.textContent = 'Écouter';
@@ -578,9 +660,10 @@ createGame();
 
       let text = '';
 
-      if(section.id === 'weatherSaint') {
-        const weatherDiv = section.querySelector('.weather-info');
-        text = 'Météo du jour : ' + weatherDiv.children[0].innerText + '. Fête du jour : ' + weatherDiv.children[1].innerText;
+      if(section.id === 'meteo') {
+        text = document.getElementById("weather-info").innerText;
+		
+		
       } else if (section.id === 'news') {
         const articles = section.querySelectorAll('.article');
         articles.forEach(article => {
