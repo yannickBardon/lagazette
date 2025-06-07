@@ -517,29 +517,35 @@
  <div class="section-header">
   <h2>Musique du jour</h2>
       </div>
-  <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-    Voici une musique choisie pour accompagner votre journée :
-  </p>
+	  <article class="article">
+	  <div class="article-content">
+		  <h3>
+			Emmenez-moi de Charles Aznavour
+			</h3>
+		  <p>
+		  La chanson sort en 1967 dans l'album "Entre deux rêves", puis devient rapidement un immense succès populaire.
+		  </p>
+		  <p>"Emmenez-moi" raconte l’histoire d’un homme pauvre rêvant d’ailleurs, d’un monde meilleur, loin de sa vie monotone et grise. Il aspire à partir vers des îles lointaines, en quête de beauté, de soleil, et surtout, d’une vie meilleure.
+		  </p>
+		  <p>Elle reflète aussi une partie du vécu d’Aznavour, fils d’immigrés arméniens, toujours entre deux mondes.</p>
+		  <audio id="audioMusique" src="musique.mp3"></audio>
+			<center>
+		  <div>
+			<button style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('audioMusique').play()">▶ Lire</button>
+			<button style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;"  onclick="document.getElementById('audioMusique').pause()">⏸ Pause</button>
+			<button  style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('audioMusique').currentTime = 0; document.getElementById('audioMusique').pause()">⏹ Stop</button>
+		  </div>
+		  </center>
 
-  <div style="display: flex; align-items: center; gap: 1rem;">
-    
-	<button id="musicToggleBtn" onclick="toggleMusic()" 
-  style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;">
-  <i id="musicIcon" class="fas fa-play" style="margin-right: 0.5rem;"></i> Écouter
-</button>
-
-	
-    <span style="font-style: italic;">Boulevard des Airs et LEJ - Emmène moi</span>
-  </div>
-
-  <audio id="dailyMusic" src="Boulevard des Airs Emmène moi Clip officiel ft. L.E.J.mp3"></audio>
-	<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
-    🎧 Cette musique provient de la plateforme <strong>YouTube</strong>. Pour plus de contenus, visitez <a href="https://www.youtube.com" target="_blank">youtube.com</a>.
-  </p>
+			<p style="margin-top: 1rem; font-size: 0.9rem; color: #555;">
+			🎧 Cette musique provient de la plateforme <strong>YouTube</strong>. Pour plus de contenus, visitez <a href="https://www.youtube.com" target="_blank">youtube.com</a>.
+			</p>
+			</div>
+		</article>
 </section>
 <script>
   let isPlaying = false;
-  let music = new Audio('chemin/vers/ta-musique.mp3'); // Remplace par le bon chemin
+  let music = new Audio('musique.mp3'); // Remplace par le bon chemin
 
   function toggleMusic() {
     const icon = document.getElementById('musicIcon');
@@ -572,14 +578,23 @@
 <section id="histoire" class="section">
  <div class="section-header">
  <h2>Histoire du jour</h2>
-      </div>
-	  <article class="article">
-			<div class="article-content">
-				<h3>Le jour où Bernard a tenté de réparer la chasse d’eau</h3>
-				<center><button class="listen-btn" onclick="lireArticle(this)">Écouter</button></center>
-				<p>Un lundi matin comme les autres, Bernard, 54 ans, moustachu de naissance et bricoleur du dimanche (uniquement les dimanches en années bissextiles), décida de réparer la chasse d’eau de ses toilettes. Non pas qu’elle fuyait, mais elle faisait un "glouglou" qui, selon lui, « menaçait la stabilité du voisinage ». Armé de son tournevis, d’un tuto YouTube intitulé "Plomberie pour les nuls mais confiants", et d’un café noir (qu’il renversa immédiatement sur le plan de travail), Bernard s’attaqua au réservoir. — “On va montrer à ce flotteur qui commande ici.” lança-t-il avec bravoure, avant de dévisser une pièce qui, apparemment, tenait tout l’écosystème en équilibre. Résultat : un jet d’eau surgit avec la grâce d’un geyser islandais. Bernard, trempé, hurla quelque chose entre “mon slip !” et “ferme la vanne, Simone !”, mais Simone était partie chez Lidl acheter des brochettes de tofu. Pris de panique, il tenta de boucher le jet avec une éponge, puis avec un chausson, et enfin avec son chat, Gérard, qui ne lui adressa plus jamais la parole. L’eau inonda la salle de bain, puis le couloir, atteignant fièrement le tapis persan que sa belle-mère lui avait offert, un tapis qu’il avait toujours rêvé de perdre dans un accident mystérieux. Au bout de vingt minutes, il réussit enfin à couper l’eau (en arrachant une poignée au hasard), mais le mal était fait. L’appartement ressemblait à une piscine municipale, sans le maître-nageur, mais avec une odeur suspecte de déboucheur. Simone revint, ouvrit la porte, vit l’état du sol et lâcha simplement : — “Tu t’es encore battu avec une chasse d’eau ou c’est une nouvelle forme de yoga aquatique ?” Bernard, assis sur une serviette trempée, répondit stoïquement : — “J’ai voulu dompter l’eau. Elle a gagné.” Depuis ce jour, Bernard ne touche plus aux installations sanitaires. Il envoie des mails passifs-agressifs au syndic à la moindre fuite. Et Gérard, le chat, dort désormais sur le clavier du PC. Le tuto est resté ouvert à la page “Étape 1 : fermez l’arrivée d’eau”.</p>
-			</div>
-		</article>
+ </div>
+ <article class="article">
+	  <div class="article-content">
+		  <h3>
+			Le train de 22h04
+			</h3>
+ 
+ <audio id="audio" src="histoire.mp3"></audio>
+	<center>
+  <div>
+    <button style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('audio').play()">▶ Lire</button>
+    <button style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;"  onclick="document.getElementById('audio').pause()">⏸ Pause</button>
+    <button  style="background-color: #880e4f; color: white; padding: 0.5rem 1rem; font-size: 1.2rem; border: none; border-radius: 8px; cursor: pointer;" onclick="document.getElementById('audio').currentTime = 0; document.getElementById('audio').pause()">⏹ Stop</button>
+  </div>
+  </center>
+  </div>
+  </article>
 </section>
 
 <section id="video" class="section">
@@ -588,11 +603,11 @@
 
       </div>
 <p style="font-size: 1.1rem; margin-bottom: 1rem;">
-    Voici une video choisie pour vous : 
-  </p>
+    Voici la video choisie pour vous aujourd'hui, direction Paris : bon voyage !	
+	</p>
    <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 8px;">
     <iframe 
-      src="https://www.youtube.com/watch?v=v2GYHS9NB5o" 
+      src="https://www.youtube.com/embed/v2GYHS9NB5o?si=kPEMIoEeKA3Es0QC" 
       title="Vidéo YouTube du jour"
       frameborder="0" 
       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
